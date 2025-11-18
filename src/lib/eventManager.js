@@ -3,11 +3,14 @@ const registeredEvent = new Map();
 export function setupEventListeners(root) {
   const eventTypes = Array.from(registeredEvent.keys());
 
+  console.log(registeredEvent);
+
   eventTypes.forEach((type) => {
     root.addEventListener(type, (e) => {
       const eventList = registeredEvent.get(type);
       eventList.forEach(({ element, handler }) => {
-        if (e.target === element) handler(e);
+        // if (e.target === element) handler(e);
+        if (element.contains(e.target)) handler(e);
       });
     });
   });
