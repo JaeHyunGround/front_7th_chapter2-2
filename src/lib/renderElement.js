@@ -1,26 +1,26 @@
 import { setupEventListeners } from "./eventManager";
 import { createElement } from "./createElement";
 import { normalizeVNode } from "./normalizeVNode";
+import { updateElement } from "./updateElement";
 
 export function renderElement(vNode, container) {
   // vNode를 정규화 한 다음에
   const normalized = normalizeVNode(vNode);
 
   // 처음 렌더링인지 확인
-  const isFirstRender = !container._eventListenersSetup;
+  const isFirstRender = !container._vNode;
 
-  // container 초기화
-  container.innerHTML = "";
-
-  // createElement로 노드를 만들고
-  const element = createElement(normalized);
-
-  // container에 삽입하고
-  container.appendChild(element);
-
-  // 이벤트를 등록합니다. (처음 렌더링 시에만)
   if (isFirstRender) {
+    // 첫 렌더링: container 초기화하고 전체 생성
+    container.innerHTML = "";
+    const element = createElement(normalized);
+    container.appendChild(element);
     setupEventListeners(container);
-    container._eventListenersSetup = true;
+  } else {
+    // 재렌더링: updateElement로 diff 적용
+    updateElement(container, normalized, container._vNode, 0);
   }
+
+  // 다음 렌더링을 위해 vNode 저장
+  container._vNode = normalized;
 }

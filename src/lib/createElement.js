@@ -48,6 +48,18 @@ function updateAttributes($el, props) {
       return;
     }
 
+    // boolean props (checked, disabled, selected, readOnly 등)
+    // property로 직접 설정
+    if (
+      key === "checked" ||
+      key === "disabled" ||
+      key === "selected" ||
+      key === "readOnly"
+    ) {
+      $el[key] = value;
+      return;
+    }
+
     // 일반 속성 처리
     return $el.setAttribute(key, value);
   });
