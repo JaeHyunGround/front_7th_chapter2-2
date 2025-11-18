@@ -10,7 +10,7 @@ export function normalizeVNode(vNode) {
   }
 
   // vNode의 타입이 함수일 경우 해당 함수를 호출하여 반환된 결과를 재귀적으로 표준화
-  // 함수형 컴포넌트일 때 해당 컴포넌트를 실행해봐야함.
+  // 함수형 컴포넌트일 때 해당 컴포넌트를 실행 해봐야함.
   if (typeof vNode.type === "function") {
     const result = vNode.type({
       ...(vNode.props || {}),
