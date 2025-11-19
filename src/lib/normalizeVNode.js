@@ -20,11 +20,11 @@ export function normalizeVNode(vNode) {
     return normalizeVNode(result);
   }
 
-  // 그 외의 경우, vNode의 자식 요소들을 재귀적으로 표준화하고, null 또는 undefined 값을 필터링하여 반환
+  // 그 외의 경우, vNode의 자식 요소들을 재귀적으로 표준화하고, null, undefined, 빈 문자열 값을 필터링하여 반환
   return {
     ...vNode,
     children: vNode.children
       .map(normalizeVNode)
-      .filter((child) => child !== null && child !== undefined),
+      .filter((child) => child !== "" && child !== null && child !== undefined),
   };
 }
