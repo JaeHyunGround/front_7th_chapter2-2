@@ -49,7 +49,6 @@ function updateAttributes($el, props) {
     }
 
     // boolean props (checked, disabled, selected, readOnly 등)
-    // property로 직접 설정
     if (
       key === "checked" ||
       key === "disabled" ||
